@@ -1,0 +1,15 @@
+# Pipeline Configuration
+
+# Path to the folders which contain the sequencing output for each cell
+LAA_DATA_PATH: /home/wgallard/MyData/pharmacogenomics_pipeline/preprocessor/henk_9_output/LAA
+
+# Path to the genome fasta file to be used for mapping/alignment
+# The location of this file should be writable so that indexes can be created
+# TODO - put this somewhere accessible by other users
+GENOME: /home/wgallard/MyData/smrtpipe_test/GRCh38/GRCh38_no_alt_analysis_set/sequence/GRCh38_no_alt_analysis_set.fasta
+
+# path to the gene definition file
+GENE: /home/wgallard/MyData/CYP2D6_Pipeline/test_data/gene/CYP2D6.yaml
+
+# path to the experiment definition file
+EXPERIMENT: /home/wgallard/MyData/CYP2D6_Pipeline/test_data/experiment/test.yaml
