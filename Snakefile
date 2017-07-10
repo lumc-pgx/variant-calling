@@ -6,7 +6,7 @@ import os
 import glob
 import yaml
 
-INPUT_FILES = glob.glob(config["LAA_DATA_PATH"] + "/*.fa") + glob.glob(config["LAA_DATA_PATH"] + "/*.fasta")
+INPUT_FILES = glob.glob(config["LAA_DATA_PATH"] + "/*.fasta")
 BARCODE_IDS = [".".join(os.path.basename(f).split(".")[:-1]) for f in INPUT_FILES]
 
 with open(config["GENE"], "r") as infile:
@@ -34,8 +34,7 @@ localrules:
 
 rule all:
     input:
-        #expand("variants/{barcodes}.txt", barcodes=BARCODE_IDS)
-        "reference/CYP2D6.fasta"
+        expand("variants/{barcodes}.var", barcodes=BARCODE_IDS)
 
 
 rule reference:
@@ -49,4 +48,17 @@ rule reference:
         end =  END
     script:
         "scripts/make_reference.py"
+
+
+rule variants:
+    input:
+        reference = "reference/{}.fasta".format(GENE_NAME),
+        alleles = config["LAA_DATA_PATH"] + "/{barcode}.fasta"
+    output:
+        variants = "variants/{barcode}.var",
+        alignments = "variants/{barcode}.aln"
+    params:
+        offset = START
+    script:
+        "scripts/call_variants.py"
 
