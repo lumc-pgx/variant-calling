@@ -4,8 +4,6 @@ dependencies:
   - python=3.5
   - drmaa=0.7
   - snakemake=3.11.2
-  - biopython=1.69
-  - edlib=1.1.2
   - pip:
-    - "--editable git+https://wgallard@git.lumc.nl/PharmacogenomicsPipe/variant_tools.git#egg=variant-tools"
+    - "--editable=git+https://wgallard@git.lumc.nl/PharmacogenomicsPipe/variant_tools.git@master#egg=variant_tools-master"
 
