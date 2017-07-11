@@ -1,6 +1,6 @@
 # Pipeline Configuration
 
-# Path to the folders which contain the sequencing output for each cell
+# Path to the folder containing the fasta format amplicon sequences
 LAA_DATA_PATH: /home/wgallard/MyData/pharmacogenomics_pipeline/preprocessor/henk_9_output/LAA
 
 # Path to the genome fasta file to be used for mapping/alignment
