@@ -34,7 +34,7 @@ localrules:
 
 rule all:
     input:
-        expand("variants/{barcodes}.var", barcodes=BARCODE_IDS)
+        expand("variants/{barcodes}.json", barcodes=BARCODE_IDS)
 
 
 rule reference:
@@ -55,7 +55,7 @@ rule variants:
         reference = "reference/{}.fasta".format(GENE_NAME),
         alleles = config["LAA_DATA_PATH"] + "/{barcode}.fasta"
     output:
-        variants = "variants/{barcode}.var",
+        variants = "variants/{barcode}.json",
         alignments = "variants/{barcode}.aln"
     params:
         offset = START
