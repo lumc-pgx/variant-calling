@@ -5,6 +5,7 @@ configfile: srcdir("config.yaml")
 import os
 import glob
 import yaml
+import datetime
 
 INPUT_FILES = glob.glob(config["LAA_DATA_PATH"] + "/*.fasta")
 BARCODE_IDS = [".".join(os.path.basename(f).split(".")[:-1]) for f in INPUT_FILES]
@@ -34,7 +35,8 @@ localrules:
 
 rule all:
     input:
-        expand("variants/{barcodes}.json", barcodes=BARCODE_IDS)
+        expand("variants/{barcodes}.json", barcodes=BARCODE_IDS),
+        "config.{}.yaml".format("{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now()))
 
 
 rule reference:
@@ -62,3 +64,10 @@ rule variants:
     script:
         "scripts/call_variants.py"
 
+
+rule write_config:
+    output:
+        "config.{timestamp}.yaml"
+    run:
+        with open(output[0], "w") as outfile:
+            yaml.dump(config, outfile, default_flow_style=False)
