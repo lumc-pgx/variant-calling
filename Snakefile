@@ -24,6 +24,10 @@ END = EXPERIMENT["targets"][0]["primers"][0]["reverse"]["end"]
 # handlers for workflow exit status
 onsuccess:
     print("Variant calling workflow completed successfully")
+    config_file = "config.{}.json".format("{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now()))
+    with open(config_file, "w") as outfile:
+        print(json.dumps(config), file=outfile)
+
 onerror:
     print("Error encountered while executing workflow")
     shell("cat {log}")
@@ -35,8 +39,7 @@ localrules:
 
 rule all:
     input:
-        expand("variants/{barcodes}.json", barcodes=BARCODE_IDS),
-        "config.{}.yaml".format("{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now()))
+        expand("variants/{barcodes}.json", barcodes=BARCODE_IDS)
 
 
 rule reference:
@@ -64,10 +67,3 @@ rule variants:
     script:
         "scripts/call_variants.py"
 
-
-rule write_config:
-    output:
-        "config.{timestamp}.yaml"
-    run:
-        with open(output[0], "w") as outfile:
-            yaml.dump(config, outfile, default_flow_style=False)
