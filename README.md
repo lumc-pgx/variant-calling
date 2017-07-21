@@ -16,7 +16,7 @@ The pipeline outputs two files per barcode:
 
 ## Installation
 - Clone the repository
-  - `git clone https://wgallard@git.lumc.nl/PharmacogenomicsPipe/variant_calling.git`
+  - `git clone https://git.lumc.nl/PharmacogenomicsPipe/variant_calling.git`
 
 - Change to the variant_calling directory
   - `cd variant_calling`
