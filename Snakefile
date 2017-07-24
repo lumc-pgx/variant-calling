@@ -17,7 +17,7 @@ with open(config["EXPERIMENT"], "r") as infile:
     EXPERIMENT = yaml.safe_load(infile)
 
 GENE_NAME = GENE["name"]
-CHROMOSOME = GENE["chromosome"]["name"]
+CHROMOSOME = EXPERIMENT["targets"][0]["chromosome"]
 START = EXPERIMENT["targets"][0]["primers"][0]["forward"]["start"]
 END = EXPERIMENT["targets"][0]["primers"][0]["reverse"]["end"]
 
