@@ -63,6 +63,8 @@ rule reference:
         chrom = CHROMOSOME["name"],
         start = START,
         end =  END
+    conda:
+        "envs/make_reference.yaml"
     script:
         "scripts/make_reference.py"
 
@@ -76,6 +78,8 @@ rule variants:
         alignments = "variants/{barcode}.aln"
     params:
         offset = START
+    conda:
+        "envs/call_variants.yaml"
     script:
         "scripts/call_variants.py"
 
