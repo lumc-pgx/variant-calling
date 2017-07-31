@@ -1,6 +1,3 @@
-# load config file
-configfile: srcdir("config.yaml")
-
 # imports
 import os
 import glob
@@ -13,8 +10,8 @@ import collections
 yaml.add_representer(collections.defaultdict, Representer.represent_dict)
 
 
-INPUT_FILES = glob.glob(config["LAA_DATA_PATH"] + "/*.fasta")
-BARCODE_IDS = [".".join(os.path.basename(f).split(".")[:-1]) for f in INPUT_FILES]
+with open(config["BARCODES"], "r") as bc_file:
+    BARCODE_IDS = [line.strip()[1:] for line in bc_file if line.startswith(">")]
 
 with open(config["GENE"], "r") as infile:
     GENE = yaml.safe_load(infile)
@@ -72,7 +69,7 @@ rule reference:
 rule variants:
     input:
         reference = "reference/{}.fasta".format(GENE_NAME),
-        alleles = config["LAA_DATA_PATH"] + "/{barcode}.fasta"
+        alleles = config["ALLELE_FASTA_FOLDER"] + "/{barcode}.fasta"
     output:
         variants = "variants/{barcode}.json",
         alignments = "variants/{barcode}.aln"

@@ -29,13 +29,14 @@ The pipeline outputs two files per barcode:
   - `source ~/.profile`
 
 ## Configuration
-Pipeline configuration settings can be altered by editing [config.yaml](config.yaml).  
+The pipeline configuration settings are specified in [config.yaml](config.yaml).  
+Edit the configfile with run-specific paths and settings.  
 
 ## Execution
 - Activate the conda environment
   - `source activate variant_calling`
 - For parallel execution on the cluster
-  - `pipe-runner`
+  - `pipe-runner --configfile config.yaml`
 - To specify that the pipeline should write output to a location other than the default:
-  - `pipe-runner --directory path/to/output/directory`
+  - `pipe-runner --configfile config.yaml --directory path/to/output/directory`
 
