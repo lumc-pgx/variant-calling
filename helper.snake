@@ -7,10 +7,12 @@ import datetime
 # yaml representer for dumping config
 from yaml.representer import Representer
 import collections
-yaml.add_representer(collections.defaultdict, Representer.represent_dict)
 
 class VariantCalling(object):
-    def __init__(self, config):
+    def __init__(self, config, workflow_name):
+        self.config = config
+        self.workflow_name = workflow_name
+
         with open(config["BARCODES"], "r") as bc_file:
             self.BARCODE_IDS = [line.strip()[1:] for line in bc_file if line.startswith(">")]
 
@@ -23,7 +25,6 @@ class VariantCalling(object):
         try:
             with open(config["EXPERIMENT"], "r") as infile:
                 self.EXPERIMENT = yaml.safe_load(infile)
-
                 self.START = self.EXPERIMENT["targets"][0]["primers"][0]["forward"]["start"]
                 self.END = self.EXPERIMENT["targets"][0]["primers"][0]["reverse"]["end"]
         except (KeyError, IOError):
@@ -32,13 +33,14 @@ class VariantCalling(object):
 
 
     # handlers for workflow exit status
-    def onsuccess(workflow_name, config):
-        print("{} workflow completed successfully".format(workflow_name))
+    def onsuccess(self):
+        print("{} workflow completed successfully".format(self.workflow_name))
+        yaml.add_representer(collections.defaultdict, Representer.represent_dict)
         config_file = "config.{}.yaml".format("{:%Y-%m-%d_%H:%M:%S}".format(datetime.datetime.now()))
         with open(config_file, "w") as outfile:
-            print(yaml.dump(config, default_flow_style=False), file=outfile)
+            print(yaml.dump(self.config, default_flow_style=False), file=outfile)
 
-    def onerror():
+    def onerror(self):
         print("Error encountered while executing workflow")
         shell("cat {log}")
 
