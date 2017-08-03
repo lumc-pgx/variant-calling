@@ -11,7 +11,7 @@ localrules:
 
 rule all:
     input:
-        expand("variants/{barcodes}.json", barcodes=PARAMS.BARCODE_IDS)
+        PARAMS.outputs
 
 
 rule reference:

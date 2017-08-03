@@ -31,6 +31,13 @@ class VariantCalling(object):
             self.START = self.GENE["coordinates"]["start"]
             self.END = self.GENE["coordinates"]["end"]
 
+    @property
+    def inputs(self):
+        return self.config["GENOME"] + expand(self.config["ALLELE_FASTA_FOLDER"] + "/{barcodes}.fasta", barcodes=self.BARCODE_IDS)
+
+    @property
+    def outputs(self):
+        return expand("variants/{barcodes}.{ext}", barcodes=self.BARCODE_IDS, ext=["aln", "json"])
 
     # handlers for workflow exit status
     def onsuccess(self):
