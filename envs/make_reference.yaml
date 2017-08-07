@@ -1,6 +1,0 @@
-channels:
-  - bioconda
-dependencies:
-  - python=3.5
-  - biopython=1.69
-  - pybedtools=0.7.10

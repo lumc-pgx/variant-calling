@@ -5,6 +5,18 @@ from Bio import SeqIO
 from variant_tools import alignment, variant_calling
 from collections import OrderedDict
 import json
+import locus_processing
+import yaml
+
+
+locus = locus_processing.load_locus_yaml(snakemake.input.gene)
+
+try:
+    with open(snakemake.config["EXPERIMENT"], "r") as infile:
+        experiment = yaml.safe_load(infile)
+        start_pos = experiment["targets"][0]["primers"][0]["forward"]["start"]
+except (KeyError, IOError):
+    start_pos = locus.coordinates.start
 
 # load the reference sequence
 ref_seq = str(SeqIO.read(snakemake.input.reference, "fasta").seq)
@@ -36,7 +48,7 @@ with open(snakemake.input.alleles, "r") as alleles, \
         result = OrderedDict()
         result["sequence_id"] = allele.id
         result["identity"] = identity
-        result["variants"] = [str(v) for v in variant_calling.call_variants(aln, snakemake.params.offset)]
+        result["variants"] = [str(v) for v in variant_calling.call_variants(aln, start_pos)]
         result_list.append(result)
 
     # dump results to json

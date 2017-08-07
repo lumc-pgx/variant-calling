@@ -1,0 +1,15 @@
+import os
+
+rule variants:
+    input:
+        gene = config["GENE"],
+        reference = os.path.join("gene_reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta"),
+        alleles = os.path.join(config["ALLELE_FASTA_FOLDER"], "{barcode}.fasta")
+    output:
+        variants = "call_variants/{barcode}.json",
+        alignments = "call_variants/{barcode}.aln"
+    conda:
+        "../envs/call_variants.yaml"
+    script:
+        "../scripts/call_variants.py"
+
