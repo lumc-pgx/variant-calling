@@ -5,7 +5,7 @@ rule gene_reference:
         genome = config["GENOME"],
         gene = config["GENE"]
     output:
-        os.path.join("gene_reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta")
+        os.path.join("variant_calling/reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta")
     conda:
         "../envs/gene_reference.yaml"
     script:

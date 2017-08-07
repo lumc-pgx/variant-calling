@@ -1,6 +1,3 @@
-include: "rules/gene_reference.snake"
-include: "rules/call_variants.snake"
-
 include: "helper.snake"
 
 PARAMS = VariantCalling(config, "Variant Calling")
@@ -17,3 +14,10 @@ localrules:
 rule all:
     input:
         PARAMS.outputs
+
+
+include: "rules/gene_reference.snake"
+include: "rules/call_variants.snake"
+include: "rules/link_sources.snake"
+
+

@@ -3,11 +3,11 @@ import os
 rule variants:
     input:
         gene = config["GENE"],
-        reference = os.path.join("gene_reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta"),
-        alleles = os.path.join(config["ALLELE_FASTA_FOLDER"], "{barcode}.fasta")
+        reference = os.path.join("variant_calling/reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta"),
+        alleles = "variant_calling/inputs/{barcode}.fasta"
     output:
-        variants = "call_variants/{barcode}.json",
-        alignments = "call_variants/{barcode}.aln"
+        variants = "variant_calling/variants/{barcode}.json",
+        alignments = "variant_calling/variants/{barcode}.aln"
     conda:
         "../envs/call_variants.yaml"
     script:

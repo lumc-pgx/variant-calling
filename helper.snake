@@ -26,7 +26,7 @@ class VariantCalling(object):
 
     @property
     def outputs(self):
-        return expand("call_variants/{barcodes}.{ext}", barcodes=self.BARCODE_IDS, ext=["aln", "json"])
+        return expand("variant_calling/variants/{barcodes}.{ext}", barcodes=self.BARCODE_IDS, ext=["aln", "json"])
 
     # handlers for workflow exit status
     def onsuccess(self):
