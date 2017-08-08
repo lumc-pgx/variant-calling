@@ -1,0 +1,12 @@
+import os
+
+rule gene_reference:
+    input:
+        genome = config["GENOME"],
+        gene = config["GENE"]
+    output:
+        os.path.join("variant_calling/reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta")
+    conda:
+        "../envs/gene_reference.yaml"
+    script:
+        "../scripts/make_reference.py"

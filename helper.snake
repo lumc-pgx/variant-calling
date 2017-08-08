@@ -1,6 +1,4 @@
 # imports
-import os
-import glob
 import yaml
 import datetime
 
@@ -26,28 +24,9 @@ class VariantCalling(object):
 
         self.BARCODE_IDS = barcode_ids if len(barcode_ids) else barcode_file_ids
 
-        with open(config["GENE"], "r") as infile:
-            self.GENE = yaml.safe_load(infile)
-
-        self.GENE_NAME = self.GENE["name"]
-        self.CHROMOSOME = self.GENE["chromosome"]
-
-        try:
-            with open(config["EXPERIMENT"], "r") as infile:
-                self.EXPERIMENT = yaml.safe_load(infile)
-                self.START = self.EXPERIMENT["targets"][0]["primers"][0]["forward"]["start"]
-                self.END = self.EXPERIMENT["targets"][0]["primers"][0]["reverse"]["end"]
-        except (KeyError, IOError):
-            self.START = self.GENE["coordinates"]["start"]
-            self.END = self.GENE["coordinates"]["end"]
-
-    @property
-    def inputs(self):
-        return self.config["GENOME"] + expand(self.config["ALLELE_FASTA_FOLDER"] + "/{barcodes}.fasta", barcodes=self.BARCODE_IDS)
-
     @property
     def outputs(self):
-        return expand("variants/{barcodes}.{ext}", barcodes=self.BARCODE_IDS, ext=["aln", "json"])
+        return expand("variant_calling/variants/{barcodes}.{ext}", barcodes=self.BARCODE_IDS, ext=["aln", "json"])
 
     # handlers for workflow exit status
     def onsuccess(self):
