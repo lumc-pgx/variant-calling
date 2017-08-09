@@ -1,11 +1,4 @@
-# imports
-import yaml
-import datetime
 from pipe_helper import PipeHelper
-
-# yaml representer for dumping config
-from yaml.representer import Representer
-import collections
 
 class VariantCallingHelper(PipeHelper):
     @property
