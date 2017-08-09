@@ -1,6 +1,6 @@
 include: "helper.snake"
 
-PARAMS = VariantCalling(config, "Variant Calling")
+PARAMS = VariantCallingHelper(config, "Variant Calling")
 
 onsuccess: PARAMS.onsuccess()
 onerror: PARAMS.onerror()
