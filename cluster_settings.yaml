@@ -3,4 +3,7 @@ __default__:
   threads: 1
   vmem: 4G
 
-
+# Parameters for variant calling
+variants:
+  threads: 1
+  vmem: 8G
