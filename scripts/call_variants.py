@@ -48,7 +48,7 @@ with open(snakemake.input.alleles, "r") as alleles, \
         result = OrderedDict()
         result["sequence_id"] = allele.id
         result["identity"] = identity
-        result["variants"] = [str(v) for v in variant_calling.call_variants(aln, start_pos)]
+        result["variants"] = [str(v) for v in variant_calling.call_variants(aln, start_pos - 1)]
         result_list.append(result)
 
     # dump results to json

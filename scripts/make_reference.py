@@ -20,7 +20,7 @@ except (KeyError, IOError):
 
 
 # create a bed tool for the required region
-bed_tool = pybedtools.BedTool([(locus.chromosome.name, start_pos, end_pos)])
+bed_tool = pybedtools.BedTool([(locus.chromosome.name, start_pos - 1, end_pos)])
 
 # associate the bedtool with the reference genome fasta
 bed_tool = bed_tool.sequence(fi=snakemake.input.genome)
