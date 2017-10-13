@@ -32,7 +32,7 @@ with open(snakemake.input.alleles, "r") as alleles, \
     for allele in SeqIO.parse(alleles, "fasta"):
         # align the allele to the ref
         allele_seq = str(allele.seq)
-        aln = alignment.get_alignment(ref_seq, allele_seq, semi_global=True, adjust_strand=True)
+        aln = alignment.align(ref_seq, allele_seq)
         
         # dump the alignment to file
         print(allele.id, file=alnfile)
