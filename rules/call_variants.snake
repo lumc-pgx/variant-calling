@@ -2,12 +2,12 @@ import os
 
 rule variants:
     input:
-        gene = config["GENE"],
-        reference = os.path.join("variant_calling/reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta"),
-        alleles = "variant_calling/inputs/{barcode}.fasta"
+        locus = lambda wc: PARAMS.locus_file(wc.gene),
+        reference = "variant_calling/reference/{gene}.fasta",
+        alleles = "variant_calling/inputs/{gene}/{barcode}.fasta"
     output:
-        variants = "variant_calling/variants/{barcode}.json",
-        alignments = "variant_calling/variants/{barcode}.aln"
+        variants = "variant_calling/variants/{gene}/{barcode}.json",
+        alignments = "variant_calling/variants/{gene}/{barcode}.aln"
     conda:
         "../envs/call_variants.yaml"
     script:

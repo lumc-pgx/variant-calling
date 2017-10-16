@@ -3,5 +3,5 @@ from pipe_helper import PipeHelper
 class VariantCallingHelper(PipeHelper):
     @property
     def outputs(self):
-        return expand("variant_calling/variants/{barcodes}.{ext}", barcodes=self.barcode_ids, ext=["aln", "json"])
+        return expand("variant_calling/variants/{gene}/{barcodes}.{ext}", gene=list(self.genes), barcodes=self.barcode_ids, ext=["aln", "json"])
 

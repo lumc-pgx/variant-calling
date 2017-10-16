@@ -9,7 +9,7 @@ import locus_processing
 import yaml
 
 
-locus = locus_processing.load_locus_yaml(snakemake.input.gene)
+locus = locus_processing.load_locus_yaml(snakemake.input.locus)
 
 try:
     with open(snakemake.config["EXPERIMENT"], "r") as infile:

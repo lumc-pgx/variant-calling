@@ -11,7 +11,10 @@ GENOME: /path/to/genome.fasta
 BARCODES: /path/to/barcodes.fasta
 
 # path to the gene definition file
-GENE: /path/to/gene.yaml
+LOCI:
+  - /path/to/gene_1.yaml
+  - /path/to/gene_2.yaml
+  - /path/to/gene_N.yaml
 
 # path to the experiment definition file
 EXPERIMENT: /path/to/experiment.yaml

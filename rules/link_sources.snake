@@ -2,6 +2,6 @@ rule link_source:
     input:
         config["ALLELE_FASTA_FOLDER"] + "/{barcode}.fasta"
     output:
-        "variant_calling/inputs/{barcode}.fasta"
+        "variant_calling/inputs/{gene}/{barcode}.fasta"
     shell:
         "ln -s {input} {output}"

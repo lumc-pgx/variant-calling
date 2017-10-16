@@ -3,9 +3,9 @@ import os
 rule gene_reference:
     input:
         genome = config["GENOME"],
-        gene = config["GENE"]
+        locus = lambda wc: PARAMS.locus_file(wc.gene)
     output:
-        os.path.join("variant_calling/reference", os.path.splitext(os.path.basename(config["GENE"]))[0] + ".fasta")
+        "variant_calling/reference/{gene}.fasta"
     conda:
         "../envs/gene_reference.yaml"
     script:
