@@ -1,1 +1,3 @@
 .conda
+.snakemake
+test_config.yaml
