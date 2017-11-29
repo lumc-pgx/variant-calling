@@ -49,8 +49,18 @@ def find_and_mask_repeats(query_seq, ref_seq):
                 masked_query = masked_query[:f["start"]] + "$" * (f["end"] + 1 - f["start"]) + masked_query[f["end"] + 1:]
     
     return list(strs), masked_query
-    
 
+
+def variant_dict(variant):
+    """
+    Create a dict from a variant
+    """
+    return {
+        "g_notation": str(variant),
+        "tags": []
+    }
+    
+  
 # process the alleles
 with open(snakemake.input.alleles, "r") as alleles, \
      open(snakemake.output.variants, "w") as varfile, \
@@ -85,7 +95,9 @@ with open(snakemake.input.alleles, "r") as alleles, \
         result = OrderedDict()
         result["sequence_id"] = allele.id
         result["identity"] = identity
-        result["variants"] = [str(v) for v in variant_calling.call_variants(aln, start_pos - 1)] + strs
+        result["variants"] = [
+            variant_dict(v) for v in variant_calling.call_variants(aln, start_pos - 1) + strs
+        ]
         result_list.append(result)
 
     # dump results to json
