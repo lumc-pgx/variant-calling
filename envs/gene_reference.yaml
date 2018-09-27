@@ -1,7 +1,7 @@
 channels:
+  - defaults
   - bioconda
   - conda-forge
-  - defaults
 dependencies:
   - python=3.5
   - biopython=1.69
