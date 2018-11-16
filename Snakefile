@@ -8,7 +8,7 @@ onerror: PARAMS.onerror()
 
 # main workflow
 localrules:
-    all
+    all, link_sources
 
 
 rule all:

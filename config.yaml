@@ -15,6 +15,3 @@ LOCI:
   - /path/to/gene_1.yaml
   - /path/to/gene_2.yaml
   - /path/to/gene_N.yaml
-
-# path to the experiment definition file
-EXPERIMENT: /path/to/experiment.yaml
